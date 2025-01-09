@@ -1,0 +1,35 @@
+services:
+  courselibrary.api:
+    image: ${DOCKER_REGISTRY-}courselibraryapi
+    build:
+      context: .
+      dockerfile: CourseLibrary.API/Dockerfile
+    ports:
+      - "51044:8080"          # Externe poort 5000 omzetten naar interne poort 80 van de container
+      - "51045:8081"        # Optioneel: andere poort toewijzing voor debugging of API gebruik
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Zet de ASP.NET Core omgeving naar Development
+      - CUSTOM_SETTING=value                # Pas deze variabelen aan naar je behoeften
+      - API_KEY=${API_KEY}                  # Laad API sleutel uit een omgeving
+      - DATABASE_URL=${DATABASE_URL-localhost}  # Optioneel: database-URL met standaardwaarde
+    volumes:
+      - ./:/app                             # Bind mount de projectmap voor hot-reloading
+    networks:
+      custom_network:
+        ipv4_address: 192.168.212.10  # Specifiek IP-adres voor sampledockerapi
+
+  # cloudflared:
+  #   image: cloudflare/cloudflared:latest
+  #   container_name: cloudflared2
+  #   restart: unless-stopped
+  #   command: tunnel --no-autoupdate run --token eyJhIjoiMDJjMzM4YTM1NjkxM2Y4OGVkNGQwZjQ3MjIxMGNhNmUiLCJ0IjoiYzQzZjFlOTctMGM1ZS00OTBmLTlkZGUtNmE3MTgzYmZjMzJkIiwicyI6Ik16Sm1PV0ZpTldJdE9URTVZUzAwTVRNM0xXRTFOR1F0WWpRM09ESmhORGt4TURKaSJ9
+  #   networks:
+  #     custom_network:
+  #       ipv4_address: 192.168.212.11  # Specifiek IP-adres voor cloudflared
+
+networks:
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.212.0/24  # Definieert een specifiek subnet
