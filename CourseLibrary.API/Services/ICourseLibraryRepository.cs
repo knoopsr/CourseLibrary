@@ -19,6 +19,6 @@ namespace CourseLibrary.API.Services
 
         bool Save();
 
-        IEnumerable<Author> GetAuthors(string mainCategory);
+        IEnumerable<Author> GetAuthors(string mainCategory, string searchQuery);
     }
 }
