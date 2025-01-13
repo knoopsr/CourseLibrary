@@ -25,7 +25,7 @@ namespace CourseLibrary.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet()]
         [HttpHead]
         public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory, string searchQuery)
         { 
@@ -33,7 +33,6 @@ namespace CourseLibrary.API.Controllers
             return Ok (_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
 
- 
 
         [HttpGet("{authorId}")]
         public IActionResult GetAuthor(Guid authorId)
@@ -46,8 +45,6 @@ namespace CourseLibrary.API.Controllers
 
             return Ok(_mapper.Map<AuthorDto>(authorFromRepo));
         }
-
-
 
     }
 }

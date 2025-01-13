@@ -16,9 +16,9 @@ namespace CourseLibrary.API.Services
         void DeleteAuthor(Author author);
         void UpdateAuthor(Author author);
         bool AuthorExists(Guid authorId);   
-
         bool Save();
 
-        IEnumerable<Author> GetAuthors(string mainCategory, string searchQuery);
+        IEnumerable<Author> GetAuthors(string mainCategory, string searchQuery);    
+
     }
 }

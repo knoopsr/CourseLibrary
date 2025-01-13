@@ -95,7 +95,9 @@ namespace CourseLibrary.API.Services
             {
                 return GetAuthors();
             }
+
             var collection = _context.Authors as IQueryable<Author>;
+
             if (!string.IsNullOrWhiteSpace(mainCategory))
             {
                 mainCategory = mainCategory.Trim();
@@ -112,6 +114,8 @@ namespace CourseLibrary.API.Services
             }
             return collection.ToList();
         }
+
+
 
         public IEnumerable<Author> GetAuthors()
         {
